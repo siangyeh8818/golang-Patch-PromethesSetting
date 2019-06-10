@@ -1,0 +1,55 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  scrape_timeout: 15s
+  external_labels:
+      server: 'global-monitor'
+scrape_configs:
+  - job_name: 'federate'
+    scrape_interval: 15s
+    honor_labels: true
+    metrics_path: '/federate'
+    params:
+      'match[]':
+        - '{job="gateway"}'
+        - '{job="zookeeper"}'
+        - '{job="kafka"}'
+        - '{job="kafka-0-jmx"}'
+        - '{job="kafka-1-jmx"}'
+        - '{job="kafka-2-jmx"}'
+        - '{job="rook-ceph"}'
+        - '{job="rook"}'
+        - '{job="kubelet"}'
+        - '{job="kube-state-metrics"}'
+        - '{job="node-exporter"}'
+        - '{job="node-exporter-datanode"}'
+        - '{job="calico-node"}'
+        - '{job="pushgateway"}'
+        - '{job="kube-dns-metrics"}'
+    static_configs:
+      - targets:
+        - '172.17.0.1:29990'
+        - '172.17.0.1:29991'
+        - '172.17.0.1:29992'
+        - '172.17.0.1:29993'
+#  - job_name: 'data-log-host'
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets: ['10.22.14.13:9100','10.22.15.13:9100']
+  - job_name: grafana_host
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - cadvisor:8080
+  - job_name: elasticsearch
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - 172.17.0.1:9108
+  - job_name: noe4j
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - 10.22.14.13:2004
+      - 10.22.15.13:2004
+      - 10.22.15.14:2004
