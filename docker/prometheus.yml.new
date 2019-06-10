@@ -26,7 +26,7 @@ scrape_configs:
           - '{job="calico-node"}'
           - '{job="pushgateway"}'
           - '{job="kube-dns-metrics"}'
-          - '{job="test12345"}'
+          - '{job="12345"}'
     static_configs:
       - targets:
           - 172.17.0.1:29990

@@ -3,7 +3,7 @@ package main
 import (
 	//	"flag"
 	"flag"
-	"fmt"
+	//"fmt"
 	"io/ioutil"
 	"log"
 
@@ -39,13 +39,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
-	fmt.Printf("Prometheus_YAML:\n%v\n\n", test)
-	fmt.Println(test.ScrapeConfigs[0].Params.Match[0])
-	fmt.Println(len(test.ScrapeConfigs[0].Params.Match))
-	fmt.Println(test.ScrapeConfigs[0].Params.Match[len(test.ScrapeConfigs[0].Params.Match)-1])
-
-	(&test).AddOpenfaasStruct("{job=\"test12345\"}")
-	fmt.Println(test.ScrapeConfigs[0].Params.Match[len(test.ScrapeConfigs[0].Params.Match)-1])
+	/*	fmt.Printf("Prometheus_YAML:\n%v\n\n", test)
+		fmt.Println(test.ScrapeConfigs[0].Params.Match[0])
+		fmt.Println(len(test.ScrapeConfigs[0].Params.Match))
+		fmt.Println(test.ScrapeConfigs[0].Params.Match[len(test.ScrapeConfigs[0].Params.Match)-1])
+	*/
+	(&test).AddOpenfaasStruct("{job=\"" + prom_new_job + "\"}")
+	//	fmt.Println(test.ScrapeConfigs[0].Params.Match[len(test.ScrapeConfigs[0].Params.Match)-1])
 
 	yamloutput, err := yaml.Marshal(&test)
 
